@@ -1,0 +1,82 @@
+{C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_subscriber_class.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_subscriber_class.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_subscriber_class.svh(5): Invalid type 'transaction'. Please check the type of the variable 'transact_sub'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_subscriber_class.svh(6): (vlog-2730) Undefined variable: 'transaction'.
+
+} {3.0 5.0} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_interface.sv} {1 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_interface.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling interface Memory_interface
+
+Top level modules:
+	--none--
+
+} {} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_driver_class.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_driver_class.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_driver_class.svh(4): Invalid type 'transaction'. Please check the type of the variable 'transact_drv'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_driver_class.svh(6): (vlog-2730) Undefined variable: 'transaction'.
+
+} {3.0 5.0} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/RTL/Memory.sv} {1 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/RTL/Memory.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling module Memory
+
+Top level modules:
+	Memory
+
+} {} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_tb.sv} {1 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_tb.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling package Memory_tb_sv_unit
+-- Importing package Memory_package
+-- Compiling module Memory_tb
+
+Top level modules:
+	Memory_tb
+
+} {} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(4): Invalid type 'sequencer'. Please check the type of the variable 'seq_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(5): Invalid type 'driver'. Please check the type of the variable 'driver_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(7): Invalid type 'subscriber'. Please check the type of the variable 'sub_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(8): Invalid type 'scoreboard'. Please check the type of the variable 'score_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(9): Invalid type 'monitor'. Please check the type of the variable 'mon_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(11): (vlog-2730) Undefined variable: 'transaction'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(22): (vlog-2730) Undefined variable: 'seq_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(23): (vlog-2730) Undefined variable: 'driver_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(25): (vlog-2730) Undefined variable: 'mon_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(26): (vlog-2730) Undefined variable: 'score_obj'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_env_class.svh(27): (vlog-2730) Undefined variable: 'sub_obj'.
+
+} {3.0 14.0} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_transaction_class.svh} {1 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_transaction_class.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling package Memory_transaction_class_svh_unit
+
+Top level modules:
+	--none--
+
+} {} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_sequencer_class.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_sequencer_class.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_sequencer_class.svh(4): Invalid type 'transaction'. Please check the type of the variable 'transact_seq'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_sequencer_class.svh(5): (vlog-2730) Undefined variable: 'transaction'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_sequencer_class.svh(12): (vlog-2730) Undefined variable: 'transact_seq'.
+
+} {3.0 6.0} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_scoreboard.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_scoreboard.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_scoreboard.svh(5): Invalid type 'transaction'. Please check the type of the variable 'transact_score'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_scoreboard.svh(6): (vlog-2730) Undefined variable: 'transaction'.
+** Warning: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_scoreboard.svh(45): (vlog-2643) Unterminated string literal continues onto next line.
+
+} {3.0 5.0} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_package.sv} {2 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_package.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+-- Compiling package Memory_package
+** Warning: ** while parsing file included at C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_package.sv(8)
+** at Memory_scoreboard.svh(45): (vlog-2643) Unterminated string literal continues onto next line.
+
+Top level modules:
+	--none--
+
+} {} {}} {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_monitor.svh} {0 {vlog -work work -vopt -sv -stats=none {C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_monitor.svh}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_monitor.svh(5): Invalid type 'transaction'. Please check the type of the variable 'transact_mon'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_monitor.svh(8): (vlog-2730) Undefined variable: 'transaction'.
+** Error: C:/Users/Ammar Wahidi/Desktop/ENG.ASU/@Digital Domain/Courses/Verification Sherif's Diploma (IP Level)/Tasks/Project Memory Class Based Env/Memory_monitor.svh(20): (vlog-2730) Undefined variable: 'transact_mon'.
+
+} {3.0 6.0} {}}
