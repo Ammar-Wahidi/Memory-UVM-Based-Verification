@@ -6,7 +6,7 @@ UVM-based verification project for Verilog memory module. Includes interface, dr
 
 ## RTL
 ### Memory
-![Memory](pics/Memory.png)
+![Memory](pics/Memory.jpg)
 
 ## Environment
 ![Environment](pics/uvm2.drawio.png)
