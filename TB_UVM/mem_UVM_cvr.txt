@@ -1,0 +1,1586 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /top/intf
+=== Design Unit: work.Memory_interface
+=================================================================================
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       2         2         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /top/intf --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File Memory_interface.sv
+    1                                                interface Memory_interface(clk);
+    2                                                input bit clk ;
+    3                                                logic                           rst             ;
+    4                                                logic                           en              ;
+    5                                                logic [31:0]                    data_in         ;
+    6                                                logic [3:0]                     address         ;
+    7                                                logic [31:0]                    data_out        ;
+    8                                                logic                           valid_out       ;
+    9                                                
+    10                                               // Clocking block at posedge clk
+    11                                               clocking cb @(posedge clk);
+    12                                                   default input #1 output #1;   // skew for avoiding race
+    13                                                   output rst, en, data_in, address;     // driven by TB
+    14              1                          1         input  data_out, valid_out;           // sampled from DUT
+    14              2                          1     
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        144       144         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /top/intf --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                      address[3-0]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                     data_in[31-0]           1           1      100.00 
+                                    data_out[31-0]           1           1      100.00 
+                                                en           1           1      100.00 
+                                               rst           1           1      100.00 
+                                         valid_out           1           1      100.00 
+
+Total Node Count     =         72 
+Toggled Node Count   =         72 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (144 of 144 bins)
+
+=================================================================================
+=== Instance: /top/DUT
+=== Design Unit: work.Memory
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         3         3         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /top/DUT
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File Memory.sv
+------------------------------------IF Branch------------------------------------
+    16                                      5094     Count coming in to IF
+    16              1                        181             if (rst)
+    20              1                       2419             else if (en)
+                                            2494     All False Count
+Branch totals: 3 hits of 3 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      2         2         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /top/DUT --
+
+  File Memory.sv
+----------------Focused Expression View-----------------
+Line       26 Item    1  (en ~| rst)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+          en         Y
+         rst         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  en_0                  ~rst                          
+  Row   2:          1  en_1                  ~rst                          
+  Row   3:          1  rst_0                 ~en                           
+  Row   4:          1  rst_1                 ~en                           
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       5         5         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /top/DUT --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File Memory.sv
+    1                                                module Memory #(parameter address_width = 4, data_with = 32) (clk,rst,en,data_in,address,data_out,valid_out);
+    2                                                
+    3                                                // Synchronous Single Port RAM - en 1 --> wtite / en 0 --> read
+    4                                                input               	            clk         ;
+    5                                                input           	                rst         ;
+    6                                                input       	                    en          ;
+    7                                                input   	[data_with-1:0]         data_in     ;
+    8                                                input   	[address_width-1:0]     address     ;
+    9                                                output      [data_with-1:0]         data_out    ;
+    10                                               output                              valid_out   ;
+    11                                               
+    12                                               reg     [data_with-1:0]         memory [0:(2**address_width)- 1]   ;
+    13                                               
+    14              1                       5094     always @(posedge clk or posedge rst)
+    15                                               begin
+    16                                                       if (rst)
+    17                                                       begin
+    18              1                        181                 memory           <= '{default:0}    ;
+    19                                                       end
+    20                                                       else if (en)
+    21                                                       begin
+    22              1                       2419                 memory[address]  <= data_in         ;       // Write 
+    23                                                       end
+    24                                               end
+    25              1                       6430     assign data_out = memory[address] ;
+    26              1                       2669     assign valid_out = (!en&&!rst) ;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        144       144         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /top/DUT --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                      address[0-3]           1           1      100.00 
+                                               clk           1           1      100.00 
+                                     data_in[0-31]           1           1      100.00 
+                                    data_out[0-31]           1           1      100.00 
+                                                en           1           1      100.00 
+                                               rst           1           1      100.00 
+                                         valid_out           1           1      100.00 
+
+Total Node Count     =         72 
+Toggled Node Count   =         72 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (144 of 144 bins)
+
+=================================================================================
+=== Instance: /top
+=== Design Unit: work.top
+=================================================================================
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       5         5         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /top --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File top.sv
+    4                                                module top();
+    5                                                bit       clk                           ;
+    6                                                
+    7                                                Memory_interface intf (clk)              ;
+    8                                                
+    9                                                Memory DUT (
+    10                                               .clk(intf.clk)                          ,
+    11                                               .rst(intf.rst)                          ,
+    12                                               .en(intf.en)                            ,
+    13                                               .data_in(intf.data_in)                  ,
+    14                                               .address(intf.address)                  ,
+    15                                               .data_out(intf.data_out)                ,
+    16                                               .valid_out(intf.valid_out)
+    17                                               );
+    18                                               
+    19              1                          1     initial    clk = 0                      ;
+    20              1                      10008     always #10 clk =~clk                    ;
+    20              2                      10007     
+    21                                               
+    22                                               initial
+    23                                               begin
+    24              1                          1         uvm_config_db#(virtual Memory_interface)::set(null,"uvm_test_top","vif",intf) ;
+    25              1                          1         run_test("my_test") ;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                          2         2         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /top --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                               clk           1           1      100.00 
+
+Total Node Count     =          1 
+Toggled Node Count   =          1 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (2 of 2 bins)
+
+=================================================================================
+=== Instance: /Memory_package_UVM
+=== Design Unit: work.Memory_package_UVM
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       1         1         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/Memory_package_UVM/my_sequence_rand/body/#ublk#193006125#15/immed__17
+                     my_sequence_rand.svh(17)           0          1
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                        61        14        47    22.95%
+
+================================Branch Details================================
+
+Branch Coverage for instance /Memory_package_UVM
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File my_sequence_item.svh
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               1                    ***0***     `uvm_object_utils(my_sequence_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                       5004     Count coming in to IF
+    2               2                    ***0***     `uvm_object_utils(my_sequence_item)
+                                            5004     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               3                    ***0***     `uvm_object_utils(my_sequence_item)
+    2               4                    ***0***     `uvm_object_utils(my_sequence_item)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                       5004     Count coming in to IF
+    2               5                    ***0***     `uvm_object_utils(my_sequence_item)
+                                            5004     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               6                    ***0***     `uvm_object_utils(my_sequence_item)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_sequence.svh
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               1                    ***0***     `uvm_object_utils(my_sequence)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               2                    ***0***     `uvm_object_utils(my_sequence)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               3                    ***0***     `uvm_object_utils(my_sequence)
+    2               4                    ***0***     `uvm_object_utils(my_sequence)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               5                    ***0***     `uvm_object_utils(my_sequence)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               6                    ***0***     `uvm_object_utils(my_sequence)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_sequence_rand.svh
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               1                    ***0***     `uvm_object_utils(my_sequence_rand)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               2                    ***0***     `uvm_object_utils(my_sequence_rand)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               3                    ***0***     `uvm_object_utils(my_sequence_rand)
+    2               4                    ***0***     `uvm_object_utils(my_sequence_rand)
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               5                    ***0***     `uvm_object_utils(my_sequence_rand)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    2                                    ***0***     Count coming in to IF
+    2               6                    ***0***     `uvm_object_utils(my_sequence_rand)
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_driver.svh
+------------------------------------IF Branch------------------------------------
+    15                                         1     Count coming in to IF
+    15              1                    ***0***         if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",vif))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    17                                   ***0***     Count coming in to IF
+    17              1                    ***0***             `uvm_fatal(get_full_name(),"Error in receving Res from agt !")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+------------------------------------IF Branch------------------------------------
+    30                                      5005     Count coming in to IF
+    30              1                       5005             `uvm_info ("DRIVER", $sformatf ("Waiting for data from sequencer"), UVM_MEDIUM)
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+  File my_monitor.svh
+------------------------------------IF Branch------------------------------------
+    17                                         1     Count coming in to IF
+    17              1                    ***0***         if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif_mon",vif))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    19                                   ***0***     Count coming in to IF
+    19              1                    ***0***             `uvm_error(get_full_name(),"Error in receving Res from agt !")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_subscriber.svh
+------------------------------------IF Branch------------------------------------
+    59                                         1     Count coming in to IF
+    59              1                          1         `uvm_info("my_subscriber", $sformatf("coverage =%0d", cvg.get_coverage()), UVM_NONE);
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+  File my_scoreboard.svh
+------------------------------------IF Branch------------------------------------
+    44                                      5002     Count coming in to IF
+    44              1                       5002         `uvm_info ("Scoreboard", $sformatf ("Write Function in Scoreboard"), UVM_MEDIUM)
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    45                                      5002     Count coming in to IF
+    45              1                         91         if (item_score.rst)
+    49              1                       2418         else if (item_score.en)
+                                            2493     All False Count
+Branch totals: 3 hits of 3 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    57                                      5002     Count coming in to IF
+    57              1                       5002         if (item_score.valid_out == valid_out_expeacted &&item_score.data_out == data_out_expeacted  )
+    61              1                    ***0***         else
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+  File my_agent.svh
+------------------------------------IF Branch------------------------------------
+    22                                         1     Count coming in to IF
+    22              1                    ***0***         if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",agent_mon_drv))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    23                                   ***0***     Count coming in to IF
+    23              1                    ***0***             `uvm_error(get_full_name(),"Error in receiving Res from env !")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_env.svh
+------------------------------------IF Branch------------------------------------
+    20                                         1     Count coming in to IF
+    20              1                    ***0***         if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",config_virtual))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    21                                   ***0***     Count coming in to IF
+    21              1                    ***0***             `uvm_error(get_full_name(),"Error!")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+  File my_test.svh
+------------------------------------IF Branch------------------------------------
+    15                                         1     Count coming in to IF
+    15              1                    ***0***         if(!uvm_config_db#(virtual Memory_interface)::get(this,"","vif",intf))
+                                               1     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    16                                   ***0***     Count coming in to IF
+    16              1                    ***0***             `uvm_error(get_full_name(),"Error in receving Res from top !")
+                                         ***0***     All False Count
+Branch totals: 0 hits of 2 branches = 0.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                       8         0         8     0.00%
+
+================================Condition Details================================
+
+Condition Coverage for instance /Memory_package_UVM --
+
+  File my_sequence_item.svh
+----------------Focused Condition View-------------------
+Line       2 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       2 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:          1  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       2 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       2 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:    ***0***  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+----------------Focused Condition View-------------------
+Line       2 Item    1  (name != 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+   Input Term   Covered  Reason for no coverage   Hint
+  -----------  --------  -----------------------  --------------
+  (name != 0)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:    ***0***  (name != 0)_0         -                             
+  Row   2:    ***0***  (name != 0)_1         -                             
+
+----------------Focused Condition View-------------------
+Line       2 Item    2  (tmp_data__ != null)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+            Input Term   Covered  Reason for no coverage   Hint
+           -----------  --------  -----------------------  --------------
+  (tmp_data__ != null)         N  No hits                  Hit '_0' and '_1'
+
+     Rows:       Hits  FEC Target              Non-masking condition(s)      
+ ---------  ---------  --------------------    -------------------------     
+  Row   1:    ***0***  (tmp_data__ != null)_0  -                             
+  Row   2:    ***0***  (tmp_data__ != null)_1  -                             
+
+
+
+
+
+
+----------------Focused Condition View-------------------
+Line       57 Item    1  ((this.item_score.valid_out == this.valid_out_expeacted) && (this.item_score.data_out == this.data_out_expeacted))
+Condition totals: 0 of 2 input terms covered = 0.00%
+
+                                               Input Term   Covered  Reason for no coverage   Hint
+                                              -----------  --------  -----------------------  --------------
+  (this.item_score.valid_out == this.valid_out_expeacted)         N  '_0' not hit             Hit '_0'
+    (this.item_score.data_out == this.data_out_expeacted)         N  '_0' not hit             Hit '_0'
+
+     Rows:       Hits  FEC Target                                                 Non-masking condition(s)      
+ ---------  ---------  --------------------                                       -------------------------     
+  Row   1:    ***0***  (this.item_score.valid_out == this.valid_out_expeacted)_0  -                             
+  Row   2:          1  (this.item_score.valid_out == this.valid_out_expeacted)_1  (this.item_score.data_out == this.data_out_expeacted)
+  Row   3:    ***0***  (this.item_score.data_out == this.data_out_expeacted)_0    (this.item_score.valid_out == this.valid_out_expeacted)
+  Row   4:          1  (this.item_score.data_out == this.data_out_expeacted)_1    (this.item_score.valid_out == this.valid_out_expeacted)
+
+
+
+
+
+
+Covergroup Coverage:
+    Covergroups                      1        na        na   100.00%
+        Coverpoints/Crosses         10        na        na        na
+            Covergroup Bins        129       129         0   100.00%
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /Memory_package_UVM/my_subscriber/cvg           100.00%        100          -    Covered              
+    covered/total bins:                                   129        129          -                      
+    missing/total bins:                                     0        129          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint rst_cp                                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint rst_cp_tran                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint en_cp                                  100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint en_cp_tran                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint data_in_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint address_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint valid_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint data_out_cp                            100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+    Cross address_en_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                32         32          -                      
+        missing/total bins:                                 0         32          -                      
+        % Hit:                                        100.00%        100          -                      
+    Cross address_data                                100.00%        100          -    Covered              
+        covered/total bins:                                64         64          -                      
+        missing/total bins:                                 0         64          -                      
+        % Hit:                                        100.00%        100          -                      
+ Covergroup instance \/Memory_package_UVM::my_subscriber::cvg  
+                                                      100.00%        100          -    Covered              
+    covered/total bins:                                   129        129          -                      
+    missing/total bins:                                     0        129          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint rst_cp                                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                      4911          1          -    Covered              
+        bin auto[1]                                        91          1          -    Covered              
+    Coverpoint rst_cp_tran                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin rst_0                                           2          1          -    Covered              
+    Coverpoint en_cp                                  100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin read                                         2532          1          -    Covered              
+        bin write                                        2470          1          -    Covered              
+    Coverpoint en_cp_tran                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin r_w                                            89          1          -    Covered              
+        bin w_r                                            90          1          -    Covered              
+    Coverpoint data_in_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin data_min                                     1729          1          -    Covered              
+        bin data_around                                  1273          1          -    Covered              
+        bin data_max                                     2000          1          -    Covered              
+        bin data_toggle                                   268          1          -    Covered              
+    Coverpoint address_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                       314          1          -    Covered              
+        bin auto[1]                                       318          1          -    Covered              
+        bin auto[2]                                       295          1          -    Covered              
+        bin auto[3]                                       335          1          -    Covered              
+        bin auto[4]                                       304          1          -    Covered              
+        bin auto[5]                                       328          1          -    Covered              
+        bin auto[6]                                       305          1          -    Covered              
+        bin auto[7]                                       304          1          -    Covered              
+        bin auto[8]                                       328          1          -    Covered              
+        bin auto[9]                                       324          1          -    Covered              
+        bin auto[10]                                      303          1          -    Covered              
+        bin auto[11]                                      304          1          -    Covered              
+        bin auto[12]                                      316          1          -    Covered              
+        bin auto[13]                                      312          1          -    Covered              
+        bin auto[14]                                      305          1          -    Covered              
+        bin auto[15]                                      307          1          -    Covered              
+    Coverpoint valid_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                      2509          1          -    Covered              
+        bin auto[1]                                      2493          1          -    Covered              
+    Coverpoint data_out_cp                            100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin data_min                                     3069          1          -    Covered              
+        bin data_around                                   760          1          -    Covered              
+        bin data_max                                     1173          1          -    Covered              
+        bin data_toggle                                   188          1          -    Covered              
+    Cross address_en_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                32         32          -                      
+        missing/total bins:                                 0         32          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <auto[15],write>                          139          1          -    Covered              
+            bin <auto[14],write>                          154          1          -    Covered              
+            bin <auto[13],write>                          160          1          -    Covered              
+            bin <auto[12],write>                          163          1          -    Covered              
+            bin <auto[11],write>                          142          1          -    Covered              
+            bin <auto[10],write>                          154          1          -    Covered              
+            bin <auto[9],write>                           155          1          -    Covered              
+            bin <auto[8],write>                           156          1          -    Covered              
+            bin <auto[7],write>                           140          1          -    Covered              
+            bin <auto[6],write>                           136          1          -    Covered              
+            bin <auto[5],write>                           157          1          -    Covered              
+            bin <auto[4],write>                           178          1          -    Covered              
+            bin <auto[3],write>                           160          1          -    Covered              
+            bin <auto[2],write>                           158          1          -    Covered              
+            bin <auto[1],write>                           163          1          -    Covered              
+            bin <auto[0],write>                           155          1          -    Covered              
+            bin <auto[15],read>                           168          1          -    Covered              
+            bin <auto[14],read>                           151          1          -    Covered              
+            bin <auto[13],read>                           152          1          -    Covered              
+            bin <auto[12],read>                           153          1          -    Covered              
+            bin <auto[11],read>                           162          1          -    Covered              
+            bin <auto[10],read>                           149          1          -    Covered              
+            bin <auto[9],read>                            169          1          -    Covered              
+            bin <auto[8],read>                            172          1          -    Covered              
+            bin <auto[7],read>                            164          1          -    Covered              
+            bin <auto[6],read>                            169          1          -    Covered              
+            bin <auto[5],read>                            171          1          -    Covered              
+            bin <auto[4],read>                            126          1          -    Covered              
+            bin <auto[3],read>                            175          1          -    Covered              
+            bin <auto[2],read>                            137          1          -    Covered              
+            bin <auto[1],read>                            155          1          -    Covered              
+            bin <auto[0],read>                            159          1          -    Covered              
+    Cross address_data                                100.00%        100          -    Covered              
+        covered/total bins:                                64         64          -                      
+        missing/total bins:                                 0         64          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <auto[15],data_toggle>                     11          1          -    Covered              
+            bin <auto[14],data_toggle>                     21          1          -    Covered              
+            bin <auto[13],data_toggle>                     19          1          -    Covered              
+            bin <auto[12],data_toggle>                     17          1          -    Covered              
+            bin <auto[11],data_toggle>                     12          1          -    Covered              
+            bin <auto[10],data_toggle>                     17          1          -    Covered              
+            bin <auto[9],data_toggle>                      16          1          -    Covered              
+            bin <auto[8],data_toggle>                      22          1          -    Covered              
+            bin <auto[7],data_toggle>                      17          1          -    Covered              
+            bin <auto[6],data_toggle>                      12          1          -    Covered              
+            bin <auto[5],data_toggle>                      20          1          -    Covered              
+            bin <auto[4],data_toggle>                      20          1          -    Covered              
+            bin <auto[3],data_toggle>                      24          1          -    Covered              
+            bin <auto[2],data_toggle>                      14          1          -    Covered              
+            bin <auto[1],data_toggle>                      13          1          -    Covered              
+            bin <auto[0],data_toggle>                      13          1          -    Covered              
+            bin <auto[15],data_max>                       124          1          -    Covered              
+            bin <auto[14],data_max>                       125          1          -    Covered              
+            bin <auto[13],data_max>                       136          1          -    Covered              
+            bin <auto[12],data_max>                       127          1          -    Covered              
+            bin <auto[11],data_max>                       118          1          -    Covered              
+            bin <auto[10],data_max>                       133          1          -    Covered              
+            bin <auto[9],data_max>                        110          1          -    Covered              
+            bin <auto[8],data_max>                        116          1          -    Covered              
+            bin <auto[7],data_max>                        128          1          -    Covered              
+            bin <auto[6],data_max>                        123          1          -    Covered              
+            bin <auto[5],data_max>                        126          1          -    Covered              
+            bin <auto[4],data_max>                        125          1          -    Covered              
+            bin <auto[3],data_max>                        137          1          -    Covered              
+            bin <auto[2],data_max>                        109          1          -    Covered              
+            bin <auto[1],data_max>                        132          1          -    Covered              
+            bin <auto[0],data_max>                        131          1          -    Covered              
+            bin <auto[15],data_around>                     63          1          -    Covered              
+            bin <auto[14],data_around>                     77          1          -    Covered              
+            bin <auto[13],data_around>                     67          1          -    Covered              
+            bin <auto[12],data_around>                     83          1          -    Covered              
+            bin <auto[11],data_around>                     75          1          -    Covered              
+            bin <auto[10],data_around>                     65          1          -    Covered              
+            bin <auto[9],data_around>                      92          1          -    Covered              
+            bin <auto[8],data_around>                      89          1          -    Covered              
+            bin <auto[7],data_around>                      84          1          -    Covered              
+            bin <auto[6],data_around>                      79          1          -    Covered              
+            bin <auto[5],data_around>                      94          1          -    Covered              
+            bin <auto[4],data_around>                      78          1          -    Covered              
+            bin <auto[3],data_around>                     100          1          -    Covered              
+            bin <auto[2],data_around>                      74          1          -    Covered              
+            bin <auto[1],data_around>                      73          1          -    Covered              
+            bin <auto[0],data_around>                      80          1          -    Covered              
+            bin <auto[15],data_min>                       120          1          -    Covered              
+            bin <auto[14],data_min>                       103          1          -    Covered              
+            bin <auto[13],data_min>                       109          1          -    Covered              
+            bin <auto[12],data_min>                       106          1          -    Covered              
+            bin <auto[11],data_min>                       111          1          -    Covered              
+            bin <auto[10],data_min>                       105          1          -    Covered              
+            bin <auto[9],data_min>                        122          1          -    Covered              
+            bin <auto[8],data_min>                        123          1          -    Covered              
+            bin <auto[7],data_min>                         92          1          -    Covered              
+            bin <auto[6],data_min>                        103          1          -    Covered              
+            bin <auto[5],data_min>                        108          1          -    Covered              
+            bin <auto[4],data_min>                        101          1          -    Covered              
+            bin <auto[3],data_min>                         98          1          -    Covered              
+            bin <auto[2],data_min>                        112          1          -    Covered              
+            bin <auto[1],data_min>                        113          1          -    Covered              
+            bin <auto[0],data_min>                        103          1          -    Covered              
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      2         2         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /Memory_package_UVM --
+
+  File my_scoreboard.svh
+----------------Focused Expression View-----------------
+Line       55 Item    1  (~this.item_score.en && ~this.item_score.rst)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+           Input Term   Covered  Reason for no coverage   Hint
+          -----------  --------  -----------------------  --------------
+   this.item_score.en         Y
+  this.item_score.rst         Y
+
+     Rows:       Hits  FEC Target             Non-masking condition(s)      
+ ---------  ---------  --------------------   -------------------------     
+  Row   1:          1  this.item_score.en_0   ~this.item_score.rst          
+  Row   2:          1  this.item_score.en_1   -                             
+  Row   3:          1  this.item_score.rst_0  ~this.item_score.en           
+  Row   4:          1  this.item_score.rst_1  ~this.item_score.en           
+
+
+
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                     234       179        55    76.49%
+
+================================Statement Details================================
+
+Statement Coverage for instance /Memory_package_UVM --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File my_sequence_item.svh
+    1                                                class my_sequence_item extends uvm_sequence_item ;
+    2               1                    ***0***     `uvm_object_utils(my_sequence_item)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    2               4                    ***0***     
+    2               5                    ***0***     
+    2               6                      10008     
+    2               7                    ***0***     
+    2               8                    ***0***     
+    2               9                       5004     
+    2              10                    ***0***     
+    3                                                rand logic                           rst             ;
+    4                                                rand logic                           en              ;
+    5                                                rand logic   [31:0]                  data_in         ;
+    6                                                rand logic   [3:0]                   address         ;
+    7                                                logic        [31:0]                  data_out        ;
+    8                                                logic                                valid_out       ;
+    9                                                
+    10                                               function new(string name = "my_sequence_item");
+    11              1                          7     super.new(name);
+
+  File my_sequence.svh
+    1                                                class my_sequence extends uvm_sequence ;
+    2               1                    ***0***     `uvm_object_utils(my_sequence)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    2               4                    ***0***     
+    2               5                    ***0***     
+    2               6                          1     
+    2               7                    ***0***     
+    2               8                    ***0***     
+    2               9                    ***0***     
+    2              10                    ***0***     
+    3                                                my_sequence_item item ;
+    4                                                
+    5                                                function new (string name = "my_sequence");
+    6               1                          1     super.new(name);
+    7                                                endfunction
+    8                                                
+    9                                                task pre_body ();
+    10              1                          1     item = my_sequence_item::type_id::create("item") ; 
+    11                                               endtask
+    12                                               
+    13                                               task body();
+    14              1                          1         start_item(item) ;
+    15              1                          1         item.rst = 1'b1 ;
+    16              1                          1         item.en = 1'b0 ;
+    17              1                          1         item.data_in = 32'h00000000 ; 
+    18              1                          1         item.address = 4'h0000 ;
+    19              1                          1         item.print(); 
+    20              1                          1         finish_item(item);
+    21              1                          1         start_item(item) ;
+    22              1                          1         item.rst = 1'b0 ;
+    23              1                          1         item.en = 1'b1 ;
+    24              1                          1         item.data_in = 32'h00000005 ; 
+    25              1                          1         item.address = 4'h0000 ;
+    26              1                          1         item.print(); 
+    27              1                          1         finish_item(item);
+    28              1                          1         start_item(item) ;
+    29              1                          1         item.rst = 1'b0 ;
+    30              1                          1         item.en = 1'b0 ;
+    31              1                          1         item.data_in = 32'h00000000 ; 
+    32              1                          1         item.address = 4'h0000 ;
+    33              1                          1         item.print(); 
+    34              1                          1         finish_item(item);
+    35              1                          1         start_item(item) ;
+    36              1                          1         item.rst = 1'b1 ;
+    37              1                          1         item.en = 1'b0 ;
+    38              1                          1         item.data_in = 32'h00000000 ; 
+    39              1                          1         item.address = 4'h0000 ;
+    40              1                          1         item.print(); 
+    41              1                          1         finish_item(item);
+
+  File my_sequence_rand.svh
+    1                                                class my_sequence_rand extends uvm_sequence;
+    2               1                    ***0***     `uvm_object_utils(my_sequence_rand)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    2               4                    ***0***     
+    2               5                    ***0***     
+    2               6                          1     
+    2               7                    ***0***     
+    2               8                    ***0***     
+    2               9                    ***0***     
+    2              10                    ***0***     
+    3                                                my_sequence_item item ;
+    4                                                
+    5                                                function new (string name = "my_sequence_rand");
+    6               1                          1     super.new(name);
+    7                                                endfunction
+    8                                                
+    9                                                task pre_body ();
+    10              1                          1     item = my_sequence_item::type_id::create("item") ; 
+    11                                               endtask
+    12                                               
+    13                                               task body();
+    14              1                       5000         repeat(5000)
+    15                                                   begin
+    16              1                       5000             start_item(item);
+    17                                                       assert(item.randomize());
+    18              1                       5000             $display("--------------------------seq_rand---------------------------------");
+    19              1                       5000             item.print();  
+    20              1                       5000             finish_item(item);
+
+  File my_sequencer.svh
+    1                                                class my_sequencer extends uvm_sequencer#(my_sequence_item) ;
+    2               1                    ***0***     `uvm_component_utils(my_sequencer)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequence_item item_sequencer ;
+    4                                                
+    5                                                function new (string name = "my_sequencer", uvm_component parent=null);
+    6               1                          1     super.new(name,parent);
+    7                                                endfunction
+    8                                                
+    9                                                function void build_phase (uvm_phase phase);
+    10              1                          1         super.build_phase(phase);
+    11              1                          1         $display("build Sequencer = [%0t]",$time);
+    12              1                          1         item_sequencer = my_sequence_item::type_id::create("item_sequencer");
+    13                                               endfunction
+    14                                               function void connect_phase (uvm_phase phase);
+    15              1                          1         super.connect_phase(phase);    
+    16              1                          1         $display("connect Sequencer = [%0t]",$time);
+    17                                               endfunction
+    18                                               
+    19                                               task run_phase (uvm_phase phase);
+    20              1                          1         super.run_phase(phase);
+    21              1                          1         $display("run Sequencer = [%0t]",$time);
+    22                                               endtask
+    23                                               
+    24                                               function void check_phase (uvm_phase phase);
+    25              1                          1         super.check_phase(phase);
+    26              1                          1         $display("check Sequencer = [%0t]",$time);
+
+  File my_driver.svh
+    1                                                class my_driver extends uvm_driver#(my_sequence_item) ;
+    2               1                    ***0***     `uvm_component_utils(my_driver)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequence_item item_drv ;
+    4                                                
+    5                                                virtual Memory_interface vif ;
+    6                                                
+    7                                                function new (string name = "my_driver",uvm_component parent=null);
+    8               1                          1     super.new(name,parent);
+    9                                                endfunction
+    10                                               
+    11                                               function void build_phase (uvm_phase phase);
+    12              1                          1         super.build_phase(phase);
+    13              1                          1         $display("build Driver = [%0t]",$time);
+    14              1                          1         item_drv = my_sequence_item::type_id::create("item_drv");
+    15                                                   if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",vif))
+    16                                                   begin
+    17              1                    ***0***             `uvm_fatal(get_full_name(),"Error in receving Res from agt !")
+    18                                                   end
+    19                                               endfunction
+    20                                               function void connect_phase (uvm_phase phase);
+    21              1                          1         super.connect_phase(phase);    
+    22              1                          1         $display("connect Driver = [%0t]",$time);
+    23                                               endfunction
+    24                                               
+    25                                               task run_phase (uvm_phase phase);
+    26              1                          1         super.run_phase(phase) ;
+    27              1                          1         forever
+    28                                                   begin
+    29              1                       5005             $display("run Driver = [%0t]",$time) ;
+    30              1                       5005             `uvm_info ("DRIVER", $sformatf ("Waiting for data from sequencer"), UVM_MEDIUM)
+    31              1                       5005             seq_item_port.get_next_item(item_drv);
+    32              1                       5004             @(posedge vif.cb);
+    33              1                       5004             vif.cb.rst     <= item_drv.rst ;
+    34              1                       5004             vif.cb.en      <= item_drv.en ;
+    35              1                       5004             vif.cb.data_in <= item_drv.data_in ;
+    36              1                       5004             vif.cb.address <= item_drv.address ;
+    37              1                       5004             seq_item_port.item_done() ;
+    38                                                   end
+    39                                               endtask
+    40                                               
+    41                                               function void check_phase (uvm_phase phase);
+    42              1                          1         super.check_phase(phase);
+    43              1                          1         $display("check Driver = [%0t]",$time);
+
+  File my_monitor.svh
+    1                                                class my_monitor extends uvm_monitor ;
+    2               1                    ***0***     `uvm_component_utils(my_monitor)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequence_item item_mon ;
+    4                                                
+    5                                                uvm_analysis_port#(my_sequence_item) AP_mon;
+    6                                                
+    7                                                virtual Memory_interface vif ;
+    8                                                
+    9                                                function new (string name = "my_monitor", uvm_component parent=null);
+    10              1                          1     super.new(name,parent);
+    11                                               endfunction
+    12                                               
+    13                                               function void build_phase (uvm_phase phase);
+    14              1                          1         super.build_phase(phase);
+    15              1                          1         $display("build Monitor = [%0t]",$time);
+    16              1                          1         item_mon = my_sequence_item::type_id::create("item_mon");
+    17                                                   if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif_mon",vif))
+    18                                                   begin
+    19              1                    ***0***             `uvm_error(get_full_name(),"Error in receving Res from agt !")
+    20                                                   end
+    21              1                          1         AP_mon = new("AP_mon",this);
+    22                                               endfunction
+    23                                               function void connect_phase (uvm_phase phase);
+    24              1                          1         super.connect_phase(phase);    
+    25              1                          1         $display("connect Monitor = [%0t]",$time);
+    26                                               endfunction
+    27                                               
+    28                                               task run_phase (uvm_phase phase);
+    29              1                          1         super.run_phase(phase);
+    30              1                          1         @(posedge vif.clk)
+    31              1                          1         forever 
+    32                                                   begin
+    33              1                       5003             $display("run Monitor = [%0t]",$time);
+    34              1                       5003             @(posedge vif.clk)
+    35              1                       5003             item_mon.rst <= vif.rst;
+    36              1                       5003             item_mon.data_out <= vif.data_out ;
+    37              1                       5003             item_mon.valid_out<= vif.valid_out ;
+    38                                               
+    39              1                       5003             item_mon.rst <= vif.rst ;
+    40              1                       5003             item_mon.en <= vif.en ;
+    41              1                       5003             item_mon.data_in <= vif.data_in ;
+    42              1                       5003             item_mon.address <= vif.address ;
+    43              1                       5003             #1step AP_mon.write(item_mon);
+    43              2                       5002     
+    44                                                   end
+    45                                               endtask 
+    46                                               
+    47                                               function void check_phase (uvm_phase phase);
+    48              1                          1         super.check_phase(phase);
+    49              1                          1         $display("check Monitor = [%0t]",$time);
+
+  File my_subscriber.svh
+    1                                                class my_subscriber extends uvm_subscriber#(my_sequence_item) ;
+    2               1                    ***0***     `uvm_component_utils(my_subscriber)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequence_item item_sub ;
+    4                                                
+    5                                                covergroup cvg ;
+    6                                                rst_cp : coverpoint item_sub.rst ;
+    7                                                rst_cp_tran : coverpoint item_sub.rst {bins rst_0 = (1=>0=>1);}
+    8                                                en_cp  : coverpoint item_sub.en  {bins read = {0} ; bins write = {1} ;} 
+    9                                                en_cp_tran : coverpoint item_sub.rst {bins r_w = (0=>1) ; bins w_r = (1=>0);}
+    10                                               data_in_cp : coverpoint item_sub.data_in {
+    11                                                   bins data_min = {32'h00000000} ;
+    12                                                   bins data_around = {[32'h00000001:32'hfffffffe]} ;
+    13                                                   bins data_max = {32'hffffffff} ;
+    14                                                   bins data_toggle = {32'h55555555};
+    15                                               }
+    16                                               address_cp : coverpoint item_sub.address ;
+    17                                               address_en_cp : cross address_cp,en_cp ;
+    18                                               address_data : cross address_cp,data_in_cp ;
+    19                                               valid_cp : coverpoint item_sub.valid_out ;
+    20                                               data_out_cp : coverpoint item_sub.data_out {
+    21                                                   bins data_min = {32'h00000000} ;
+    22                                                   bins data_around = {[32'h00000001:32'hfffffffe]} ;
+    23                                                   bins data_max = {32'hffffffff} ;
+    24                                                   bins data_toggle = {32'h55555555};
+    25                                               }
+    26                                               endgroup 
+    27                                               
+    28                                               function new (string name = "my_subscriber", uvm_component parent=null);
+    29              1                          1     super.new(name, parent);
+    30              1                          1     cvg = new () ;
+    31                                               endfunction
+    32                                               
+    33                                               function void build_phase (uvm_phase phase);
+    34              1                          1         super.build_phase(phase);
+    35              1                          1         item_sub = my_sequence_item::type_id::create("item_sub");
+    36              1                          1         $display("build Subscriber = [%0t]",$time);
+    37                                               endfunction
+    38                                               function void connect_phase (uvm_phase phase);
+    39              1                          1         super.connect_phase(phase);    
+    40              1                          1         $display("connect Subscriber = [%0t]",$time);
+    41                                               endfunction
+    42                                               
+    43                                               task run_phase (uvm_phase phase);
+    44              1                          1         super.run_phase(phase);
+    45              1                          1         $display("run Subscriber = [%0t]",$time);
+    46                                               endtask
+    47                                               
+    48                                               function void check_phase (uvm_phase phase);
+    49              1                          1         super.check_phase(phase);
+    50              1                          1         $display("check Subscriber = [%0t]",$time);
+    51                                               endfunction 
+    52                                               
+    53                                               function void write (my_sequence_item t);
+    54              1                       5002         item_sub = t ;
+    55              1                       5002         cvg.sample();
+    56                                               endfunction 
+    57                                               
+    58                                               function void report_phase (uvm_phase phase);
+    59              1                          1         `uvm_info("my_subscriber", $sformatf("coverage =%0d", cvg.get_coverage()), UVM_NONE);
+
+  File my_scoreboard.svh
+    1                                                class my_scoreboard extends uvm_scoreboard ;
+    2               1                    ***0***     `uvm_component_utils(my_scoreboard)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequence_item item_score ;
+    4                                                
+    5                                                int right_count , wrong_count ;
+    6                                                logic valid_out_expeacted ;
+    7                                                logic [31:0] data_out_expeacted ;
+    8                                                reg     [32-1:0]   memory_ref [0:(2**4)- 1]   ;
+    9                                                
+    10                                               uvm_analysis_imp#(my_sequence_item,my_scoreboard) AI_score ;
+    11                                               
+    12                                               function new (string name = "my_scoreboard", uvm_component parent=null);
+    13              1                          1     super.new(name,parent);
+    14                                               endfunction
+    15                                               
+    16                                               function void build_phase (uvm_phase phase);
+    17              1                          1         super.build_phase(phase);
+    18              1                          1         $display("build Scoreboard = [%0t]",$time);
+    19              1                          1         item_score = my_sequence_item::type_id::create("item_score") ;
+    20              1                          1         AI_score = new("AI_score",this) ;
+    21                                               endfunction
+    22                                               function void connect_phase (uvm_phase phase);
+    23              1                          1         super.connect_phase(phase);    
+    24              1                          1         $display("connect Scoreboard = [%0t]",$time);
+    25                                               endfunction
+    26                                               
+    27                                               extern function void write(my_sequence_item t);
+    28                                               
+    29                                               task run_phase (uvm_phase phase);
+    30              1                          1         super.run_phase(phase);
+    31              1                          1         $display("run Scoreboard = [%0t]",$time);
+    32                                               endtask
+    33                                               
+    34                                               function void check_phase (uvm_phase phase);
+    35              1                          1         super.check_phase(phase);
+    36              1                          1         $display("check Scoreboard = [%0t]",$time);
+    37                                               endfunction 
+    38                                               
+    39                                               
+    40                                               endclass
+    41                                               
+    42                                               function void my_scoreboard::write(my_sequence_item t);
+    43              1                       5002         item_score = t ;
+    44              1                       5002         `uvm_info ("Scoreboard", $sformatf ("Write Function in Scoreboard"), UVM_MEDIUM)
+    45                                                   if (item_score.rst)
+    46                                                   begin
+    47              1                         91             memory_ref  = '{default:0}    ;
+    48                                                   end
+    49                                                   else if (item_score.en)
+    50                                                   begin
+    51              1                       2418         memory_ref[item_score.address]  <= item_score.data_in         ;       // Write 
+    52                                                   end
+    53                                               
+    54              1                       5002         data_out_expeacted = memory_ref[item_score.address] ;
+    55              1                       5002         valid_out_expeacted = (!item_score.en&&!item_score.rst) ;
+    56                                               
+    57                                                   if (item_score.valid_out == valid_out_expeacted &&item_score.data_out == data_out_expeacted  )
+    58                                                   begin
+    59              1                       5002             right_count ++ ;
+    60                                                   end
+    61                                                   else
+    62                                                   begin
+    63              1                    ***0***             wrong_count ++ ;
+    64                                                   end
+    65              1                       5002         $display("--------------------------score---------------------------------");
+    66              1                       5002         $display("[%0t] score: \nrst = %0b \nen = %0b \nData in = %0h \naddress = %0d \nData out = %0h \nValid out = %0b 
+    67                                                   \nData out expeacted = %0d \nValid out expeacted = %0d",$time
+    68                                                   ,item_score.rst,item_score.en,item_score.data_in,item_score.address,item_score.data_out,item_score.valid_out
+    69                                                   ,data_out_expeacted,valid_out_expeacted);
+    70              1                       5002         $display("Right counts = %0d \nWrong_count = %0d \n\n",right_count,wrong_count);
+
+  File my_agent.svh
+    1                                                class my_agent extends uvm_agent ; 
+    2               1                    ***0***     `uvm_component_utils(my_agent)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_sequencer sequencer ;
+    4                                                my_driver driver ;
+    5                                                my_monitor monitor ;
+    6                                                
+    7                                                uvm_analysis_port#(my_sequence_item) AP_agt ;
+    8                                                
+    9                                                virtual Memory_interface agent_mon_drv  ;
+    10                                               
+    11                                               function new (string name = "my_agent", uvm_component parent=null);
+    12              1                          1     super.new(name,parent);
+    13                                               endfunction
+    14                                               
+    15                                               function void build_phase (uvm_phase phase);
+    16              1                          1         super.build_phase(phase);
+    17              1                          1         $display("build Agent = [%0t]",$time);
+    18              1                          1         sequencer = my_sequencer::type_id::create("sequencer",this);
+    19              1                          1         driver = my_driver::type_id::create("driver",this);
+    20              1                          1         monitor = my_monitor::type_id::create("monitor",this);
+    21                                               
+    22                                                   if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",agent_mon_drv))
+    23              1                    ***0***             `uvm_error(get_full_name(),"Error in receiving Res from env !")
+    24              1                          1         uvm_config_db#(virtual Memory_interface)::set(this,"monitor","my_vif_mon",agent_mon_drv);
+    25              1                          1         uvm_config_db#(virtual Memory_interface)::set(this,"driver","my_vif",agent_mon_drv);
+    26              1                          1         AP_agt = new("AP_agt",this);
+    27                                               endfunction
+    28                                               function void connect_phase (uvm_phase phase);
+    29              1                          1         super.connect_phase(phase);    
+    30              1                          1         $display("connect Agent = [%0t]",$time);
+    31              1                          1         monitor.AP_mon.connect(this.AP_agt) ;
+    32              1                          1         driver.seq_item_port.connect(sequencer.seq_item_export) ;
+    33                                               endfunction
+    34                                               
+    35                                               task run_phase (uvm_phase phase);
+    36              1                          1         super.run_phase(phase);
+    37              1                          1         $display("run Agent = [%0t]",$time);
+    38                                               endtask
+    39                                               
+    40                                               function void check_phase (uvm_phase phase);
+    41              1                          1         super.check_phase(phase);
+    42              1                          1         $display("check Agent = [%0t]",$time);
+
+  File my_env.svh
+    1                                                class my_env extends uvm_env ; 
+    2               1                    ***0***     `uvm_component_utils(my_env)
+    2               2                    ***0***     
+    2               3                    ***0***     
+    3                                                my_agent agent ;
+    4                                                my_scoreboard scoreboard ;
+    5                                                my_subscriber subscriber ;
+    6                                                
+    7                                                virtual Memory_interface config_virtual  ;
+    8                                                
+    9                                                function new (string name = "my_env", uvm_component parent=null);
+    10              1                          1     super.new(name, parent);
+    11                                               endfunction
+    12                                               
+    13                                               function void build_phase (uvm_phase phase);
+    14              1                          1         super.build_phase(phase);
+    15              1                          1         $display("build env = [%0t]",$time);
+    16              1                          1         agent = my_agent::type_id::create("agent",this) ;
+    17              1                          1         scoreboard = my_scoreboard::type_id::create("scoreboard",this) ;
+    18              1                          1         subscriber = my_subscriber::type_id::create("subscriber",this) ;
+    19                                               
+    20                                                   if(!uvm_config_db#(virtual Memory_interface)::get(this,"","my_vif",config_virtual))
+    21              1                    ***0***             `uvm_error(get_full_name(),"Error!")
+    22              1                          1         uvm_config_db#(virtual Memory_interface)::set(this,"agent","my_vif",config_virtual);
+    23                                               endfunction
+    24                                               function void connect_phase (uvm_phase phase);
+    25              1                          1         super.connect_phase(phase);    
+    26              1                          1         $display("connect env = [%0t]",$time);
+    27              1                          1         agent.AP_agt.connect(scoreboard.AI_score) ;
+    28              1                          1         agent.AP_agt.connect(subscriber.analysis_export) ;
+    29                                               endfunction
+    30                                               
+    31                                               task run_phase (uvm_phase phase);
+    32              1                          1         super.run_phase(phase);
+    33              1                          1         $display("run env = [%0t]",$time);
+    34                                               endtask
+    35                                               
+    36                                               function void check_phase (uvm_phase phase);
+    37              1                          1         super.check_phase(phase);
+    38              1                          1         $display("check env = [%0t]",$time);
+
+  File my_test.svh
+    1                                                class my_test extends uvm_test ;
+    2               1                    ***0***     `uvm_component_utils(my_test)
+    2               2                    ***0***     
+    2               3                          1     
+    3                                                my_env env ;
+    4                                                my_sequence seq ;
+    5                                                my_sequence_rand seq_rand ;
+    6                                                virtual Memory_interface intf ;
+    7                                                
+    8                                                function new (string name = "my_test", uvm_component parent=null);
+    9               1                          1     super.new(name, parent);
+    10                                               endfunction
+    11                                               
+    12                                               function void build_phase (uvm_phase phase);
+    13              1                          1         super.build_phase(phase);
+    14              1                          1         $display("build Test = [%0t]",$time);
+    15                                                   if(!uvm_config_db#(virtual Memory_interface)::get(this,"","vif",intf))
+    16              1                    ***0***             `uvm_error(get_full_name(),"Error in receving Res from top !")
+    17              1                          1         uvm_config_db#(virtual Memory_interface)::set(this,"env","my_vif",intf);
+    18                                                   
+    19              1                          1         seq = my_sequence::type_id::create("seq",this) ;
+    20              1                          1         env = my_env::type_id::create("env",this) ;
+    21              1                          1         seq_rand = my_sequence_rand::type_id::create("seq_rand",this);
+    22                                               endfunction
+    23                                               function void connect_phase (uvm_phase phase);
+    24              1                          1         super.connect_phase(phase); 
+    25              1                          1         $display("connect Test = [%0t]",$time);   
+    26                                               endfunction
+    27                                               
+    28                                               task run_phase (uvm_phase phase);
+    29              1                          1         super.run_phase(phase);
+    30              1                          1         $display("run Test = [%0t]",$time);
+    31              1                          1         phase.raise_objection (this) ;
+    32              1                          1         seq.start(env.agent.sequencer) ;
+    33              1                          1         seq_rand.start(env.agent.sequencer) ;
+    34              1                          1         phase.drop_objection (this) ;
+    35                                               endtask
+    36                                               
+    37                                               function void check_phase (uvm_phase phase);
+    38              1                          1         super.check_phase(phase);
+    39              1                          1         $display("check Test = [%0t]",$time);
+
+
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /Memory_package_UVM/my_subscriber/cvg           100.00%        100          -    Covered              
+    covered/total bins:                                   129        129          -                      
+    missing/total bins:                                     0        129          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint rst_cp                                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint rst_cp_tran                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint en_cp                                  100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint en_cp_tran                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint data_in_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint address_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint valid_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint data_out_cp                            100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+    Cross address_en_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                32         32          -                      
+        missing/total bins:                                 0         32          -                      
+        % Hit:                                        100.00%        100          -                      
+    Cross address_data                                100.00%        100          -    Covered              
+        covered/total bins:                                64         64          -                      
+        missing/total bins:                                 0         64          -                      
+        % Hit:                                        100.00%        100          -                      
+ Covergroup instance \/Memory_package_UVM::my_subscriber::cvg  
+                                                      100.00%        100          -    Covered              
+    covered/total bins:                                   129        129          -                      
+    missing/total bins:                                     0        129          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint rst_cp                                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                      4911          1          -    Covered              
+        bin auto[1]                                        91          1          -    Covered              
+    Coverpoint rst_cp_tran                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin rst_0                                           2          1          -    Covered              
+    Coverpoint en_cp                                  100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin read                                         2532          1          -    Covered              
+        bin write                                        2470          1          -    Covered              
+    Coverpoint en_cp_tran                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin r_w                                            89          1          -    Covered              
+        bin w_r                                            90          1          -    Covered              
+    Coverpoint data_in_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin data_min                                     1729          1          -    Covered              
+        bin data_around                                  1273          1          -    Covered              
+        bin data_max                                     2000          1          -    Covered              
+        bin data_toggle                                   268          1          -    Covered              
+    Coverpoint address_cp                             100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                       314          1          -    Covered              
+        bin auto[1]                                       318          1          -    Covered              
+        bin auto[2]                                       295          1          -    Covered              
+        bin auto[3]                                       335          1          -    Covered              
+        bin auto[4]                                       304          1          -    Covered              
+        bin auto[5]                                       328          1          -    Covered              
+        bin auto[6]                                       305          1          -    Covered              
+        bin auto[7]                                       304          1          -    Covered              
+        bin auto[8]                                       328          1          -    Covered              
+        bin auto[9]                                       324          1          -    Covered              
+        bin auto[10]                                      303          1          -    Covered              
+        bin auto[11]                                      304          1          -    Covered              
+        bin auto[12]                                      316          1          -    Covered              
+        bin auto[13]                                      312          1          -    Covered              
+        bin auto[14]                                      305          1          -    Covered              
+        bin auto[15]                                      307          1          -    Covered              
+    Coverpoint valid_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                      2509          1          -    Covered              
+        bin auto[1]                                      2493          1          -    Covered              
+    Coverpoint data_out_cp                            100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin data_min                                     3069          1          -    Covered              
+        bin data_around                                   760          1          -    Covered              
+        bin data_max                                     1173          1          -    Covered              
+        bin data_toggle                                   188          1          -    Covered              
+    Cross address_en_cp                               100.00%        100          -    Covered              
+        covered/total bins:                                32         32          -                      
+        missing/total bins:                                 0         32          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <auto[15],write>                          139          1          -    Covered              
+            bin <auto[14],write>                          154          1          -    Covered              
+            bin <auto[13],write>                          160          1          -    Covered              
+            bin <auto[12],write>                          163          1          -    Covered              
+            bin <auto[11],write>                          142          1          -    Covered              
+            bin <auto[10],write>                          154          1          -    Covered              
+            bin <auto[9],write>                           155          1          -    Covered              
+            bin <auto[8],write>                           156          1          -    Covered              
+            bin <auto[7],write>                           140          1          -    Covered              
+            bin <auto[6],write>                           136          1          -    Covered              
+            bin <auto[5],write>                           157          1          -    Covered              
+            bin <auto[4],write>                           178          1          -    Covered              
+            bin <auto[3],write>                           160          1          -    Covered              
+            bin <auto[2],write>                           158          1          -    Covered              
+            bin <auto[1],write>                           163          1          -    Covered              
+            bin <auto[0],write>                           155          1          -    Covered              
+            bin <auto[15],read>                           168          1          -    Covered              
+            bin <auto[14],read>                           151          1          -    Covered              
+            bin <auto[13],read>                           152          1          -    Covered              
+            bin <auto[12],read>                           153          1          -    Covered              
+            bin <auto[11],read>                           162          1          -    Covered              
+            bin <auto[10],read>                           149          1          -    Covered              
+            bin <auto[9],read>                            169          1          -    Covered              
+            bin <auto[8],read>                            172          1          -    Covered              
+            bin <auto[7],read>                            164          1          -    Covered              
+            bin <auto[6],read>                            169          1          -    Covered              
+            bin <auto[5],read>                            171          1          -    Covered              
+            bin <auto[4],read>                            126          1          -    Covered              
+            bin <auto[3],read>                            175          1          -    Covered              
+            bin <auto[2],read>                            137          1          -    Covered              
+            bin <auto[1],read>                            155          1          -    Covered              
+            bin <auto[0],read>                            159          1          -    Covered              
+    Cross address_data                                100.00%        100          -    Covered              
+        covered/total bins:                                64         64          -                      
+        missing/total bins:                                 0         64          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <auto[15],data_toggle>                     11          1          -    Covered              
+            bin <auto[14],data_toggle>                     21          1          -    Covered              
+            bin <auto[13],data_toggle>                     19          1          -    Covered              
+            bin <auto[12],data_toggle>                     17          1          -    Covered              
+            bin <auto[11],data_toggle>                     12          1          -    Covered              
+            bin <auto[10],data_toggle>                     17          1          -    Covered              
+            bin <auto[9],data_toggle>                      16          1          -    Covered              
+            bin <auto[8],data_toggle>                      22          1          -    Covered              
+            bin <auto[7],data_toggle>                      17          1          -    Covered              
+            bin <auto[6],data_toggle>                      12          1          -    Covered              
+            bin <auto[5],data_toggle>                      20          1          -    Covered              
+            bin <auto[4],data_toggle>                      20          1          -    Covered              
+            bin <auto[3],data_toggle>                      24          1          -    Covered              
+            bin <auto[2],data_toggle>                      14          1          -    Covered              
+            bin <auto[1],data_toggle>                      13          1          -    Covered              
+            bin <auto[0],data_toggle>                      13          1          -    Covered              
+            bin <auto[15],data_max>                       124          1          -    Covered              
+            bin <auto[14],data_max>                       125          1          -    Covered              
+            bin <auto[13],data_max>                       136          1          -    Covered              
+            bin <auto[12],data_max>                       127          1          -    Covered              
+            bin <auto[11],data_max>                       118          1          -    Covered              
+            bin <auto[10],data_max>                       133          1          -    Covered              
+            bin <auto[9],data_max>                        110          1          -    Covered              
+            bin <auto[8],data_max>                        116          1          -    Covered              
+            bin <auto[7],data_max>                        128          1          -    Covered              
+            bin <auto[6],data_max>                        123          1          -    Covered              
+            bin <auto[5],data_max>                        126          1          -    Covered              
+            bin <auto[4],data_max>                        125          1          -    Covered              
+            bin <auto[3],data_max>                        137          1          -    Covered              
+            bin <auto[2],data_max>                        109          1          -    Covered              
+            bin <auto[1],data_max>                        132          1          -    Covered              
+            bin <auto[0],data_max>                        131          1          -    Covered              
+            bin <auto[15],data_around>                     63          1          -    Covered              
+            bin <auto[14],data_around>                     77          1          -    Covered              
+            bin <auto[13],data_around>                     67          1          -    Covered              
+            bin <auto[12],data_around>                     83          1          -    Covered              
+            bin <auto[11],data_around>                     75          1          -    Covered              
+            bin <auto[10],data_around>                     65          1          -    Covered              
+            bin <auto[9],data_around>                      92          1          -    Covered              
+            bin <auto[8],data_around>                      89          1          -    Covered              
+            bin <auto[7],data_around>                      84          1          -    Covered              
+            bin <auto[6],data_around>                      79          1          -    Covered              
+            bin <auto[5],data_around>                      94          1          -    Covered              
+            bin <auto[4],data_around>                      78          1          -    Covered              
+            bin <auto[3],data_around>                     100          1          -    Covered              
+            bin <auto[2],data_around>                      74          1          -    Covered              
+            bin <auto[1],data_around>                      73          1          -    Covered              
+            bin <auto[0],data_around>                      80          1          -    Covered              
+            bin <auto[15],data_min>                       120          1          -    Covered              
+            bin <auto[14],data_min>                       103          1          -    Covered              
+            bin <auto[13],data_min>                       109          1          -    Covered              
+            bin <auto[12],data_min>                       106          1          -    Covered              
+            bin <auto[11],data_min>                       111          1          -    Covered              
+            bin <auto[10],data_min>                       105          1          -    Covered              
+            bin <auto[9],data_min>                        122          1          -    Covered              
+            bin <auto[8],data_min>                        123          1          -    Covered              
+            bin <auto[7],data_min>                         92          1          -    Covered              
+            bin <auto[6],data_min>                        103          1          -    Covered              
+            bin <auto[5],data_min>                        108          1          -    Covered              
+            bin <auto[4],data_min>                        101          1          -    Covered              
+            bin <auto[3],data_min>                         98          1          -    Covered              
+            bin <auto[2],data_min>                        112          1          -    Covered              
+            bin <auto[1],data_min>                        113          1          -    Covered              
+            bin <auto[0],data_min>                        103          1          -    Covered              
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/Memory_package_UVM/my_sequence_rand/body/#ublk#193006125#15/immed__17
+                     my_sequence_rand.svh(17)           0          1
+
+Total Coverage By Instance (filtered view): 72.02%
+
